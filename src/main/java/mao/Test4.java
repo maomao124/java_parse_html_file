@@ -80,7 +80,7 @@ public class Test4
         Document document = Jsoup.parse(s);
         //System.out.println(document);
 
-        Element div = document.getElementById("category_441");
+        Element div = document.getElementById(GameProp.getHotDivId());
         //System.out.println(div);
         assert div != null;
         Elements tr = div.getElementsByTag("tr");
@@ -151,7 +151,7 @@ public class Test4
     public static void print(List<Game> list)
     {
         System.out.println("+-----------------------------------------------------------+");
-        System.out.println("| 游戏热度\t\t\t游戏名称                                |");
+        System.out.println("|  游戏热度\t\t\t游戏名称                                 |");
         System.out.println("+-----------------------------------------------------------+");
         for (Game game : list)
         {
@@ -159,7 +159,7 @@ public class Test4
             String gameName = game.getGameName();
             //System.out.println(hot + "\t\t\t" + gameName);
             //System.out.printf("|%5d\t\t\t%-30s|\n", hot, gameName);
-            String format = String.format("|%5d\t\t\t%-36s|", hot, gameName);
+            String format = String.format("|%6d\t\t\t%-36s", hot, gameName);
             //46
             System.out.println(format);
         }
@@ -169,7 +169,7 @@ public class Test4
 
     public static void main(String[] args) throws IOException
     {
-        Map<String, String> map = parse("https://bbs.3dmgame.com/forum.php");
+        Map<String, String> map = parse(GameProp.getUrl());
         //System.out.println(map);
         List<Game> list = mapToList(map);
         sort(list);
