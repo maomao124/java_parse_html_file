@@ -1,28 +1,29 @@
 package mao;
 
-
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
 
-import java.io.*;
-
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.URL;
+import java.net.URLConnection;
 
 /**
  * Project name(项目名称)：解析html文件
  * Package(包名): mao
- * Class(类名): Test
+ * Class(类名): Test4
  * Author(作者）: mao
  * Author QQ：1296193245
  * GitHub：https://github.com/maomao124/
  * Date(创建日期)： 2022/9/2
- * Time(创建时间)： 19:03
+ * Time(创建时间)： 20:24
  * Version(版本): 1.0
  * Description(描述)： 无
  */
 
-public class Test
+public class Test4
 {
     /**
      * 加载
@@ -51,27 +52,12 @@ public class Test
 
     public static void main(String[] args) throws IOException
     {
-        InputStream inputStream = Test.class.getClassLoader().getResourceAsStream("test.html");
+        URL url = new URL("https://bbs.3dmgame.com/forum.php");
+        URLConnection urlConnection = url.openConnection();
+        InputStream inputStream = urlConnection.getInputStream();
         assert inputStream != null;
-        Document document = Jsoup.parse(load(inputStream));
-        Elements html = document.getElementsByTag("html");
-        //System.out.println(html);
-        Elements body = html.select("body");
-        //System.out.println(body);
-        Elements tr = body.select("tr");
-        //System.out.println(tr);
-        for (Element element : tr)
-        {
-            //System.out.println(element+"\n");
-            Elements td = element.getElementsByTag("td");
-            //System.out.println(td);
-            for (Element element1 : td)
-            {
-                //System.out.println(element1 + "\n");
-                String s = element1.html();
-                System.out.print(s + "\t\t");
-            }
-            System.out.println();
-        }
+        String s = load(inputStream);
+        System.out.println(s);
+        //Document document = Jsoup.parse();
     }
 }
