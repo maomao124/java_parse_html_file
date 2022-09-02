@@ -12,6 +12,7 @@ import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLConnection;
 
+import java.nio.charset.StandardCharsets;
 import java.util.*;
 
 /**
@@ -42,7 +43,7 @@ public class Test4
         {
             return null;
         }
-        InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
+        InputStreamReader inputStreamReader = new InputStreamReader(inputStream, StandardCharsets.UTF_8);
         BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
         StringBuilder stringBuffer = new StringBuilder();
         String str = null;
@@ -151,7 +152,7 @@ public class Test4
     public static void print(List<Game> list)
     {
         System.out.println("+-----------------------------------------------------------+");
-        System.out.println("|  游戏热度\t\t\t游戏名称                                 |");
+        System.out.println("|  游戏热度\t\t\t游戏名称                                 ");
         System.out.println("+-----------------------------------------------------------+");
         for (Game game : list)
         {
