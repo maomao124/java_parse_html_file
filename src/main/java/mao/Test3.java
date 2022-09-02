@@ -3,15 +3,13 @@ package mao;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.net.InetAddress;
-import java.net.Socket;
-import java.net.URL;
-import java.net.URLConnection;
+
 
 /**
  * Project name(项目名称)：解析html文件
@@ -61,6 +59,28 @@ public class Test3
         //System.out.println(document);
 
         Element div = document.getElementById("category_441");
-        System.out.println(div);
+        //System.out.println(div);
+        assert div != null;
+        Elements tr = div.getElementsByTag("tr");
+        for (Element element : tr)
+        {
+            //System.out.println(element);
+            Elements td = element.getElementsByTag("td");
+            for (Element element1 : td)
+            {
+                //System.out.println(element1);
+                Element dt = element1.getElementsByTag("dt").first();
+                //System.out.println(dt);
+                assert dt != null;
+                Element a = dt.getElementsByTag("a").first();
+                assert a != null;
+                String gameName = a.html();
+                Element em = dt.getElementsByTag("em").first();
+                assert em != null;
+                String hot = em.html();
+                hot = hot.substring(1, hot.length() - 1);
+                System.out.println(gameName + "\t\t" + hot);
+            }
+        }
     }
 }
