@@ -12,9 +12,7 @@ import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLConnection;
 
-import java.util.HashMap;
-
-import java.util.Map;
+import java.util.*;
 
 /**
  * Project name(项目名称)：解析html文件
@@ -110,20 +108,62 @@ public class Test4
         return map;
     }
 
+    /**
+     * 映射到列表
+     *
+     * @param map map集合
+     * @return {@link List}<{@link Game}>
+     */
+    public static List<Game> mapToList(Map<String, String> map)
+    {
+        List<Game> list = new LinkedList<>();
+        for (String key : map.keySet())
+        {
+            String value = map.get(key);
+            list.add(new Game(key, Integer.parseInt(value)));
+        }
+        return list;
+    }
+
+    /**
+     * 排序
+     *
+     * @param list 列表
+     */
+    public static void sort(List<Game> list)
+    {
+        list.sort(new Comparator<Game>()
+        {
+            @Override
+            public int compare(Game o1, Game o2)
+            {
+                return o2.getHot() - o1.getHot();
+            }
+        });
+    }
+
 
     /**
      * 打印
      *
-     * @param map map集合
+     * @param list 列表
      */
-    public static void print(Map<String, String> map)
+    public static void print(List<Game> list)
     {
-        System.out.println("+--游戏热度--|----游戏名称------");
-        for (String key : map.keySet())
+        System.out.println("+-----------------------------------------------------------+");
+        System.out.println("| 游戏热度\t\t\t游戏名称                                |");
+        System.out.println("+-----------------------------------------------------------+");
+        for (Game game : list)
         {
-            String value = map.get(key);
-            System.out.println("|--" + value + "--|" + key);
+            int hot = game.getHot();
+            String gameName = game.getGameName();
+            //System.out.println(hot + "\t\t\t" + gameName);
+            //System.out.printf("|%5d\t\t\t%-30s|\n", hot, gameName);
+            String format = String.format("|%5d\t\t\t%-36s|", hot, gameName);
+            //46
+            System.out.println(format);
         }
+        System.out.println("+-----------------------------------------------------------+");
     }
 
 
@@ -131,6 +171,10 @@ public class Test4
     {
         Map<String, String> map = parse("https://bbs.3dmgame.com/forum.php");
         //System.out.println(map);
-        print(map);
+        List<Game> list = mapToList(map);
+        sort(list);
+        //System.out.println(list);
+        print(list);
+
     }
 }
